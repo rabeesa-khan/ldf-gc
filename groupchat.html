@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LDF | Official Instagram Group Chat</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #080911;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .font-heading {
+            font-family: 'Syne', sans-serif;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-card {
+            background: rgba(18, 20, 36, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card-hover:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: rgba(236, 72, 153, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(236, 72, 153, 0.35);
+        }
+
+        /* Instagram & Neon Gradients */
+        .insta-gradient-text {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .insta-gradient-btn {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        /* Neon Pulse Animation */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 40px rgba(168, 85, 247, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 35px rgba(236, 72, 153, 0.9), 0 0 60px rgba(168, 85, 247, 0.7);
+            }
+        }
+
+        .cta-glow {
+            animation: pulse-glow 3s infinite;
+        }
+
+        /* Floating Background Emojis */
+        .floating-emoji {
+            position: absolute;
+            user-select: none;
+            pointer-events: none;
+            animation: float 12s infinite ease-in-out;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- Interactive Canvas Particles Background -->
+    <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Floating Background Decor -->
+    <div class="floating-emoji text-5xl top-[10%] left-[5%]" style="animation-delay: 0s;">🔥</div>
+    <div class="floating-emoji text-4xl top-[25%] right-[8%]" style="animation-delay: 2s;">💖</div>
+    <div class="floating-emoji text-5xl top-[50%] left-[8%]" style="animation-delay: 4s;">✨</div>
+    <div class="floating-emoji text-6xl top-[70%] right-[6%]" style="animation-delay: 1s;">🎭</div>
+    <div class="floating-emoji text-4xl top-[85%] left-[15%]" style="animation-delay: 3s;">👑</div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 max-w-6xl mx-auto px-4 py-8 md:py-12">
+        
+        <!-- Navbar -->
+        <header class="flex justify-between items-center mb-12 glass-card px-6 py-4 rounded-2xl">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl insta-gradient-btn flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <span class="font-heading font-extrabold text-2xl tracking-wider text-white">LDF <span class="text-pink-500">GC</span></span>
+            </div>
+            <button onclick="openJoinModal()" class="px-5 py-2 rounded-xl text-sm font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/10 transition">
+                <i class="fas fa-paper-plane mr-2 text-pink-400"></i>Join Us
+            </button>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="text-center mb-20">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-pink-500/30 text-pink-300 text-xs md:text-sm font-medium mb-6">
+                <span class="inline-block w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+                The Ultimate Squad
+            </div>
+            
+            <h1 class="font-heading text-5xl sm:text-7xl md:text-8xl font-extrabold mb-6 tracking-tight">
+                Welcome to <span class="insta-gradient-text">LDF</span> 🔥
+            </h1>
+            
+            <p class="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                The most iconic, fun & chaotic Instagram group chat. Late night talks, non-stop memes, and unmatchable vibes!
+            </p>
+
+            <!-- Highlights Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12">
+                <div class="glass-card p-4 rounded-2xl text-center border-t-2 border-pink-500/50">
+                    <div class="text-3xl mb-2">💖</div>
+                    <div class="font-semibold text-sm text-gray-200">Good Vibes</div>
+                    <div class="text-xs text-gray-400 mt-1">100% Wholesome</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center border-t-2 border-purple-500/50">
+                    <div class="text-3xl mb-2">🎭</div>
+                    <div class="font-semibold text-sm text-gray-200">Endless Banter</div>
+                    <div class="text-xs text-gray-400 mt-1">Non-stop Memes</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center border-t-2 border-cyan-500/50">
+                    <div class="text-3xl mb-2">🌙</div>
+                    <div class="font-semibold text-sm text-gray-200">Late Night Chats</div>
+                    <div class="text-xs text-gray-400 mt-1">Always Active</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl text-center border-t-2 border-amber-500/50">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <div class="font-semibold text-sm text-gray-200">24/7 Energy</div>
+                    <div class="text-xs text-gray-400 mt-1">Crazy Squad</div>
+                </div>
+            </div>
+
+            <!-- Main CTA Button -->
+            <button onclick="openJoinModal()" class="cta-glow insta-gradient-btn px-8 py-4 rounded-2xl text-white font-bold text-lg hover:scale-105 active:scale-95 transition-transform duration-200 inline-flex items-center gap-3">
+                <i class="fab fa-instagram text-2xl"></i>
+                <span>🚀 Join LDF GC Now!</span>
+            </button>
+        </section>
+
+        <!-- Admins Section -->
+        <section class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mb-3">
+                    Meet The Admins 👑
+                </h2>
+                <p class="text-gray-400 text-sm md:text-base">The trio managing LDF and keeping the energy sky-high.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Admin 1: Rabeesa -->
+                <div class="glass-card glass-card-hover rounded-3xl p-6 text-center relative overflow-hidden">
+                    <div class="w-24 h-24 mx-auto mb-5 rounded-full p-1 bg-gradient-to-tr from-pink-500 via-purple-500 to-yellow-500">
+                        <img src="https://placehold.co/150x150/e91e63/ffffff?text=Besa" alt="Rabeesa" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-1">Rabeesa</h3>
+                    <p class="text-pink-400 text-xs font-semibold tracking-wider uppercase mb-3">Lead Admin / Tech Creator 💻👑</p>
+                    <p class="text-gray-400 text-sm mb-6 font-light">The tech mastermind keeping LDF connected & active.</p>
+
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/rabeesasays?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/10 hover:bg-pink-600/30 hover:border-pink-500/50 border border-white/10 text-white font-medium text-sm transition">
+                        <span>Visit Profile</span>
+                        <i class="fas fa-external-link-alt text-xs text-pink-400"></i>
+                    </a>
+                </div>
+
+                <!-- Admin 2: Umar -->
+                <div class="glass-card glass-card-hover rounded-3xl p-6 text-center relative overflow-hidden">
+                    <div class="w-24 h-24 mx-auto mb-5 rounded-full p-1 bg-gradient-to-tr from-cyan-500 via-blue-500 to-indigo-500">
+                        <img src="https://placehold.co/150x150/00bcd4/ffffff?text=Umar" alt="Umar" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-1">Umar</h3>
+                    <p class="text-cyan-400 text-xs font-semibold tracking-wider uppercase mb-3">Admin 🛡️⚡</p>
+                    <p class="text-gray-400 text-sm mb-6 font-light">The vibe keeper ensuring positivity and high energy in the chat.</p>
+
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/pl_15e?utm_source=ig_web_button_share_sheet&dlrf=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/10 hover:bg-cyan-600/30 hover:border-cyan-500/50 border border-white/10 text-white font-medium text-sm transition">
+                        <span>Visit Profile</span>
+                        <i class="fas fa-external-link-alt text-xs text-cyan-400"></i>
+                    </a>
+                </div>
+
+                <!-- Admin 3: Sarim -->
+                <div class="glass-card glass-card-hover rounded-3xl p-6 text-center relative overflow-hidden">
+                    <div class="w-24 h-24 mx-auto mb-5 rounded-full p-1 bg-gradient-to-tr from-purple-500 via-pink-500 to-red-500">
+                        <img src="https://placehold.co/150x150/9c27b0/ffffff?text=Sarim" alt="Sarim" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-white mb-1">Sarim</h3>
+                    <p class="text-purple-400 text-xs font-semibold tracking-wider uppercase mb-3">Co-Admin 🚀🔥</p>
+                    <p class="text-gray-400 text-sm mb-6 font-light">Bringing top-tier comedy and chaotic fun 24/7.</p>
+
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/sar_imk?utm_source=ig_web_button_share_sheet&exln=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/10 hover:bg-purple-600/30 hover:border-purple-500/50 border border-white/10 text-white font-medium text-sm transition">
+                        <span>Visit Profile</span>
+                        <i class="fas fa-external-link-alt text-xs text-purple-400"></i>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- OG Members Section -->
+        <section class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mb-3">
+                    Meet Our OG Members ⚡
+                </h2>
+                <p class="text-gray-400 text-sm md:text-base">The legendary members who make LDF iconic!</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                
+                <!-- Member 1: Khan -->
+                <div class="glass-card p-5 rounded-2xl text-center glass-card-hover flex flex-col justify-between items-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-red-500 to-orange-500 flex items-center justify-center text-white text-xl font-bold mb-3 shadow-lg">
+                        KH
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-bold text-white text-base">Khan 💥</h4>
+                        <span class="text-xs text-pink-400">OG Member</span>
+                    </div>
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/muhammadkhankhushik?utm_source=ig_web_button_share_sheet&exln=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-lg bg-white/5 hover:bg-white/20 text-xs font-semibold text-gray-200 transition">
+                        Visit Profile ↗
+                    </a>
+                </div>
+
+                <!-- Member 2: Aila -->
+                <div class="glass-card p-5 rounded-2xl text-center glass-card-hover flex flex-col justify-between items-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-pink-400 to-purple-400 flex items-center justify-center text-white text-xl font-bold mb-3 shadow-lg">
+                        AI
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-bold text-white text-base">Aila ✨</h4>
+                        <span class="text-xs text-pink-400">OG Member</span>
+                    </div>
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/dlo_d077/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-lg bg-white/5 hover:bg-white/20 text-xs font-semibold text-gray-200 transition">
+                        Visit Profile ↗
+                    </a>
+                </div>
+
+                <!-- Member 3: Anas -->
+                <div class="glass-card p-5 rounded-2xl text-center glass-card-hover flex flex-col justify-between items-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-white text-xl font-bold mb-3 shadow-lg">
+                        AN
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-bold text-white text-base">Anas ⚡</h4>
+                        <span class="text-xs text-pink-400">OG Member</span>
+                    </div>
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/priv_anas69?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-lg bg-white/5 hover:bg-white/20 text-xs font-semibold text-gray-200 transition">
+                        Visit Profile ↗
+                    </a>
+                </div>
+
+                <!-- Member 4: Mina  -->
+                <div class="glass-card p-5 rounded-2xl text-center glass-card-hover flex flex-col justify-between items-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-teal-400 to-emerald-500 flex items-center justify-center text-white text-xl font-bold mb-3 shadow-lg">
+                        Mi
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-bold text-white text-base">Mina 🌸</h4>
+                        <span class="text-xs text-pink-400">OG Member</span>
+                    </div>
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/aminarehman_43?utm_source=ig_web_button_share_sheet&exln=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-lg bg-white/5 hover:bg-white/20 text-xs font-semibold text-gray-200 transition">
+                        Visit Profile ↗
+                    </a>
+                </div>
+
+                <!-- Member 5: Zain -->
+                <div class="glass-card p-5 rounded-2xl text-center glass-card-hover flex flex-col justify-between items-center col-span-2 sm:col-span-1">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center text-white text-xl font-bold mb-3 shadow-lg">
+                        ZA
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-bold text-white text-base">Zain 🎯</h4>
+                        <span class="text-xs text-pink-400">OG Member</span>
+                    </div>
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/mustafa_zain12/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-lg bg-white/5 hover:bg-white/20 text-xs font-semibold text-gray-200 transition">
+                        Visit Profile ↗
+                    </a>
+                </div>
+
+                  <!-- Member 6: Abbas -->
+                <div class="glass-card p-5 rounded-2xl text-center glass-card-hover flex flex-col justify-between items-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-red-500 to-orange-500 flex items-center justify-center text-white text-xl font-bold mb-3 shadow-lg">
+                        AB
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-bold text-white text-base">Abbas �️</h4>
+                        <span class="text-xs text-pink-400">OG Member</span>
+                    </div>
+                    <!-- EDIT INSTAGRAM LINK BELOW -->
+                    <a href="https://www.instagram.com/cap_abbas_2927?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-lg bg-white/5 hover:bg-white/20 text-xs font-semibold text-gray-200 transition">
+                        Visit Profile ↗
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-xs py-6 border-t border-white/5">
+            <p>Made with ❤️ for LDF Group Chat • Powered by Instagram Vibes</p>
+        </footer>
+    </div>
+
+    <!-- Modal Popup for Join GC -->
+    <div id="joinModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+        <div class="glass-card border border-pink-500/40 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center transform scale-95 transition-transform duration-300 relative shadow-2xl">
+            <!-- Close Button -->
+            <button onclick="closeJoinModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+                &times;
+            </button>
+
+            <!-- Icon -->
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-white text-2xl shadow-lg">
+                <i class="fab fa-instagram"></i>
+            </div>
+
+            <h3 class="font-heading text-2xl font-extrabold text-white mb-2">Join LDF Group Chat! 💬</h3>
+            <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                Click below to join directly via link, or DM any of our Admins to add you manually!
+            </p>
+
+            <div class="flex flex-col gap-3">
+                <!-- EDIT DIRECT GC INVITE LINK HERE -->
+                <a id="gcLinkBtn" href="https://l.instagram.com/?u=https%3A%2F%2Fig.me%2Fj%2FAbawMqTbwR4l5o59%2F%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAcGRvZgJzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAaeJpzPcJTSzNBi0lI9hRDUNd-FXanWG8l4s_V9ODyIPb_N9lXRM2GDbvI7keg_aem_krywqv5pVRZYGIMfVIYY9g&e=AUBcjrAa51BoTMg6xWEngVnVoHFg3QFiwWBlVFudnLg4_MowCwDURHe2oxFhOA81QXwmmyq9aU7yuZDx-3NouBWkChQIePjABjNYPG3KvxQEQeFR9JkUd0sD0xaoX2d7e6CTuQY" target="_blank" rel="noopener noreferrer" class="insta-gradient-btn py-3 rounded-xl text-white font-semibold text-sm shadow-md hover:opacity-90 transition inline-flex items-center justify-center gap-2">
+                    <i class="fab fa-instagram"></i>
+                    <span>Direct GC Join Link ↗</span>
+                </a>
+
+                <button onclick="copyGcLink()" class="py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-gray-300 font-semibold text-xs border border-white/10 transition flex items-center justify-center gap-2">
+                    <i class="fas fa-copy"></i>
+                    <span id="copyBtnText">Copy GC Link to Clipboard</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Paste your Group Chat Link here so the Copy button works:
+        const GC_INVITE_URL = "https://l.instagram.com/?u=https%3A%2F%2Fig.me%2Fj%2FAbawMqTbwR4l5o59%2F%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAcGRvZgJzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAaeJpzPcJTSzNBi0lI9hRDUNd-FXanWG8l4s_V9ODyIPb_N9lXRM2GDbvI7keg_aem_krywqv5pVRZYGIMfVIYY9g&e=AUBcjrAa51BoTMg6xWEngVnVoHFg3QFiwWBlVFudnLg4_MowCwDURHe2oxFhOA81QXwmmyq9aU7yuZDx-3NouBWkChQIePjABjNYPG3KvxQEQeFR9JkUd0sD0xaoX2d7e6CTuQY";
+
+        // Particle Background Logic
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.color = ['#ec4899', '#a855f7', '#06b6d4', '#ffffff'][Math.floor(Math.random() * 4)];
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(Math.floor(window.innerWidth / 15), 80);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.onload = function() {
+            initParticles();
+            animateParticles();
+        };
+
+        // Modal Controls
+        function openJoinModal() {
+            const modal = document.getElementById('joinModal');
+            const modalCard = modal.querySelector('div');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalCard.classList.remove('scale-95');
+            modalCard.classList.add('scale-100');
+        }
+
+        function closeJoinModal() {
+            const modal = document.getElementById('joinModal');
+            const modalCard = modal.querySelector('div');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalCard.classList.remove('scale-100');
+            modalCard.classList.add('scale-95');
+        }
+
+        // Copy GC Link helper
+        function copyGcLink() {
+            const tempInput = document.createElement('input');
+            tempInput.value = GC_INVITE_URL;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const btnText = document.getElementById('copyBtnText');
+            btnText.innerText = "Copied to Clipboard! ✨";
+            setTimeout(() => {
+                btnText.innerText = "Copy GC Link to Clipboard";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
